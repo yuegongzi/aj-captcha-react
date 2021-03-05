@@ -1,10 +1,10 @@
-@import "../assert/fonts/iconfont.css";
+//@import "../assert/fonts/iconfont.css";
 
 .ac-slide-container{
   position: relative;
 }
 .ac-slide-panel-wrap{
-  height: 200px;
+  //height: 200px;
 }
 .ac-slide-panel{
   margin: 0;
@@ -23,7 +23,7 @@
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 5px;
   z-index: 2;
 }
 
@@ -70,10 +70,11 @@
 /*滑动验证码*/
 .ac-slide-bar {
   position: relative;
-  background: #FFFFFF;
+  background: #f7f9fa;
   text-align: center;
   box-sizing: content-box;
-  border: 1px solid #ddd;
+  margin-top: 10px;
+  border: 1px solid #e4e7eb;
 }
 
 .ac-slide-bar .ac-slide-bar-move {
@@ -122,10 +123,9 @@
   color: #45494c;
   margin: 0 auto;
   position: relative;
-  top: -300px;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
 }
 
 .ac-slide-icon-right{
@@ -133,11 +133,8 @@
   color: #45494c;
   margin: 0 auto;
   position: relative;
-  background-size: contain;
-  top: -340px;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  height: 40px;
+  line-height: 40px;
   z-index: 3;
 }
 
@@ -211,16 +208,16 @@
   }
   .ac-slide-pop-top{
     padding: 0 15px;
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     color: #45494c;
     border-bottom: 1px solid #e4e7eb;
     box-sizing: border-box;
   }
   .ac-slide-pop-bottom{
-    padding: 15px;
+    padding: 12px;
     box-sizing: border-box;
   }
   .ac-slide-pop-close{

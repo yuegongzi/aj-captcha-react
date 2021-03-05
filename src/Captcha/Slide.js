@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import './index.less';
 import { addListener, aesEncrypt, CODE, storage,slideSecond } from '../utils/utils';
 import { check, picture } from '../utils/request';
 import Loading from '../Loading/Loading';
+import "../assert/fonts/iconfont.css"
+import './index.less';
 
 const block = {
   width: 50,
@@ -26,8 +27,8 @@ export default class Slide extends PureComponent {
 
   static defaultProps = {
     panel: {
-      height: 200,
-      width: 310,
+      height: 155,
+      width: 280,
     },
     barHeight: 40,
     path: null,
@@ -246,9 +247,10 @@ export default class Slide extends PureComponent {
         </div>
         {/*bar展示*/}
         <div className='ac-slide-bar'
-             style={{ width: panel.width, height: barHeight, lineHeight: barHeight }}
+             style={{ width: panel.width, height: barHeight}}
              ref={this.setBar}>
-          <span className='ac-slide-bar-message'>{processing ? '' : '向右滑动完成验证'}</span>
+          <span
+            className='ac-slide-bar-message'>{processing ? '' : '向右滑动完成验证'}</span>
           <div
             className={className}
             style={{
@@ -271,7 +273,7 @@ export default class Slide extends PureComponent {
                    style={{
                      width: Math.floor((panel.width * 47) / 310) + 'px',
                      height: panel.height,
-                     top: `-${panel.height + 5}px`,
+                     top: `-${panel.height + 14}px`,
                      backgroundSize: `${panel.width}px ${panel.height}px`,
                    }}>
                 {

@@ -6,8 +6,8 @@ import Point from './Point';
 export default class Captcha extends React.Component{
   static defaultProps = {
     panel: {
-      height: 200,
-      width: 310,
+      height: 155,
+      width: 280,
     },
     barHeight: 40,
     captchaType:"auto",// slide point

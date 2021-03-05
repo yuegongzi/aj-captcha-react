@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import { check, picture } from '../utils/request';
 import { aesEncrypt, CODE, storage ,pointSecond} from '../utils/utils';
+import "../assert/fonts/iconfont.css"
 import './index.less';
 import Loading from '../Loading/Loading';
 
 export default class Point extends PureComponent {
   static defaultProps = {
     panel: {
-      height: 200,
-      width: 310,
+      height: 155,
+      width: 280,
     },
     barHeight: 40,
     path:null,
@@ -213,8 +214,7 @@ export default class Point extends PureComponent {
           className={className}
           style={{
             width: panel.width,
-            height: barHeight,
-            lineHeight: barHeight,
+            height: barHeight
           }}
         >
           {this.renderMessage()}

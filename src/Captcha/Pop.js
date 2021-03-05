@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import "../assert/fonts/iconfont.css"
 import './index.less';
 
 export default class Pop extends PureComponent {
