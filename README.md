@@ -31,7 +31,7 @@ $ npm install aj-captcha-react
 
 ```jsx
 import React, { PureComponent } from "react"
-import { Captcha } from "core-captcha"
+import { Captcha } from "aj-captcha-react"
 
 export default class Demo extends PureComponent {
   captcha = React.createRef()
