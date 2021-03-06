@@ -163,11 +163,9 @@ export default class Point extends PureComponent {
 
   render() {
     const { panel, barHeight } = this.props;
-    const { preview, points, complete, pass, code, loading } = this.state;
+    const { preview, points, complete, pass,  loading } = this.state;
     if (loading) {
-      return (<div style={{ ...panel, border: '1px solid #ddd' }}>
-        <Loading />
-      </div>);
+      return (<Loading />);
     }
     let className = 'ac-slide-bar ';
     if (complete) {//验证通过
@@ -204,7 +202,10 @@ export default class Point extends PureComponent {
                   top: `${point.y - 10}px`,
                   left: `${point.x - 10}px`,
                 }}
-              >{index + 1}
+              >
+                <div>
+                  {index + 1}
+                </div>
               </div>
             ))}
           </div>

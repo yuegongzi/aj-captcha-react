@@ -36,8 +36,8 @@ export default class Demo extends PureComponent {
           background:"#1890ff"}}>点击</button>
         <Captcha 
           onSuccess={(data)=>console.log(data)}
-          path="https://api.ejiexi.com/system/cgi" captchaType="point" 
-          type="embed" ref={this.captcha}>
+          path="https://api.ejiexi.com/system/cgi" captchaType="auto" 
+          type="popup" ref={this.captcha}>
         </Captcha>
       </div>
     )

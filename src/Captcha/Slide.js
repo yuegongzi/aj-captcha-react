@@ -88,8 +88,8 @@ export default class Slide extends PureComponent {
       }
       const haf_block = block.width / 2;
       let move_block_left = x - left; //小方块相对于父元素的left值
-      if (move_block_left >= (offsetWidth - haf_block - 2)) {
-        move_block_left = (offsetWidth - haf_block - 2);
+      if (move_block_left >= (offsetWidth - haf_block - 1)) {
+        move_block_left = (offsetWidth - haf_block - 1);
       }
       if (move_block_left <= 0) {
         move_block_left = haf_block;
@@ -106,7 +106,6 @@ export default class Slide extends PureComponent {
   end = () => {
     const endMoveTime = +new Date();
     const { moving, complete, moveBlockLeft, preview, startMoveTime } = this.state;
-
     const { panel } = this.props;
     //判断是否重合
     if (moving && !complete) {
@@ -205,9 +204,7 @@ export default class Slide extends PureComponent {
     const { panel, barHeight } = this.props;
     const { preview, leftBarWidth, moving, moveBlockLeft, complete, pass, time, checking, loading } = this.state;
     if (loading) {
-      return (<div style={{ ...panel, border: '1px solid #ddd' }}>
-        <Loading />
-      </div>);
+      return (<Loading />);
     }
     let className = 'ac-slide-bar-left ';
     let moveBarClass = 'ac-slide-bar-move ';
@@ -244,6 +241,21 @@ export default class Slide extends PureComponent {
              </span>
             }
           </div>
+          <div className='ac-slide-bar-move-block'
+               style={{
+                 width: Math.floor((panel.width * 47) / 310) + 'px',
+                 height: panel.height,
+                 left: moveBlockLeft,
+                 backgroundSize: `${panel.width}px ${panel.height}px`,
+               }}>
+            {
+              preview.block &&
+              <img
+                src={`data:image/png;base64,${preview.block}`}
+                className='ac-slide-image'
+              />
+            }
+          </div>
         </div>
         {/*bar展示*/}
         <div className='ac-slide-bar'
@@ -269,22 +281,9 @@ export default class Slide extends PureComponent {
               <i className={`ac-icon ac-slide-icon-right ${iconClass}`}
                  style={{ color: processing ? '#fff' : '' }}
               />
-              <div className='ac-slide-bar-move-block'
-                   style={{
-                     width: Math.floor((panel.width * 47) / 310) + 'px',
-                     height: panel.height,
-                     top: `-${panel.height + 14}px`,
-                     backgroundSize: `${panel.width}px ${panel.height}px`,
-                   }}>
-                {
-                  preview.block &&
-                  <img
-                    src={`data:image/png;base64,${preview.block}`}
-                    className='ac-slide-image'
-                  />
-                }
-              </div>
+
             </div>
+
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   border-radius: 3px;
+  user-select: none;
   position: relative;
 }
 
@@ -23,7 +24,7 @@
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: 5px;
+  right: 15px;
   z-index: 2;
 }
 
@@ -54,6 +55,7 @@
   text-align: left;
   line-height: 30px;
   font-size: 13px;
+  z-index: 4;
   color: #fff;
 }
 
@@ -93,6 +95,11 @@
   color: #FFFFFF ;
 }
 
+.ac-slide-bar .ac-slide-bar-move:active {
+  background-color: #1890ff ;
+  color: #FFFFFF ;
+}
+
 .ac-slide-bar .ac-slide-bar-left {
   position: absolute;
   top: -1px;
@@ -118,7 +125,6 @@
 
 }
 
-
 .ac-slide-bar-message {
   color: #45494c;
   margin: 0 auto;
@@ -141,6 +147,11 @@
 .ac-slide-icon-right:hover{
   color: #FFFFFF !important;
 }
+
+.ac-slide-icon-right:active{
+  color: #FFFFFF !important;
+}
+
 
 .ac-slide-bar-fail{
   background: #fce1e1 !important;
@@ -167,8 +178,11 @@
   background: #f57a7a !important;
   color: #FFFFFF !important;
 }
-.ac-slide-bar-move-block:hover{
-  background: transparent !important;
+.ac-slide-bar-move-block{
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 3;
 }
 
 .ac-fail-container{
@@ -194,7 +208,7 @@
   height: 100vh;
   background: rgba(0,0,0,.3);
   transition: all .5s;
-
+  user-select: none;
   .ac-slide-pop-body{
     position: relative;
     box-sizing: border-box;
@@ -213,7 +227,7 @@
     text-align: left;
     font-size: 14px;
     color: #45494c;
-    border-bottom: 1px solid #e4e7eb;
+    border-bottom: 1px solid #f9fafb;
     box-sizing: border-box;
   }
   .ac-slide-pop-bottom{
@@ -231,6 +245,21 @@
   }
 }
 
+@keyframes scaleDraw {  /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+  0%{
+    transform: scale(1);  /*开始为原始大小*/
+  }
+  25%{
+    transform: scale(1.1); /*放大1.1倍*/
+  }
+  50%{
+    transform: scale(1);
+  }
+  75%{
+    transform: scale(1.1);
+  }
+}
+
 .ac-point-area{
   //background-color: #1abd6c;
   background-color: #1890ff;
@@ -239,11 +268,25 @@
   border: 3px solid rgba(255,255,255,0.7);
   width: 20px;
   height: 20px;
+  font-size: 12px;
+  font-weight: bold;
   text-align: center;
-  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   position: absolute;
   overflow: hidden;
+  animation-name:scaleDraw;
+  animation-timing-function: ease-in-out; /*动画的速度曲线*/
+  animation-iteration-count: infinite;  /*动画播放的次数*/
+  animation-duration: 4s; /*动画所花费的时间*/
+
+  >div{
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
 }
 
 .ac-point-message-success{
