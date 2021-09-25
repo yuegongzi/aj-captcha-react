@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
-import { addListener, aesEncrypt, CODE, storage,slideSecond } from '../utils/utils';
+import {
+  addListener,
+  aesEncrypt,
+  CODE,
+  storage,
+  slideSecond,
+} from '../utils/utils';
 import { check, picture } from '../utils/request';
-import Loading from '../Loading/Loading';
-import "../assert/fonts/iconfont.css"
+import Loading from '../loading/Loading';
+import '../assert/fonts/iconfont.css';
 import './index.less';
 
 const block = {
@@ -21,7 +27,8 @@ export default class Slide extends PureComponent {
   constructor() {
     super();
     this.bar = {
-      left: 0, offsetWidth: 0,
+      left: 0,
+      offsetWidth: 0,
     };
   }
 
@@ -32,21 +39,19 @@ export default class Slide extends PureComponent {
     },
     barHeight: 40,
     path: null,
-    onFail: () => {
-    },
-    onSuccess: () => {
-    },
+    onFail: () => {},
+    onSuccess: () => {},
     onValidFail: () => {
       return true;
     },
   };
 
   state = {
-    preview: {},//后台返回的预览数据
-    moving: false,	    //拖动中
-    complete: false,		//验证完成
+    preview: {}, //后台返回的预览数据
+    moving: false, //拖动中
+    complete: false, //验证完成
     pass: false, //验证状态
-    checking: false,//验证中
+    checking: false, //验证中
     loading: true, //加载验证码中
     code: '0000',
   };
@@ -54,14 +59,16 @@ export default class Slide extends PureComponent {
   start = (e) => {
     e = e || window.event;
     let x;
-    if (!e.touches) {  //兼容PC端
+    if (!e.touches) {
+      //兼容PC端
       x = e.clientX;
-    } else {           //兼容移动端
+    } else {
+      //兼容移动端
       x = e.touches[0].pageX;
     }
     const { complete } = this.state;
-    let startLeft = Math.floor(x - this.bar.left);//记录开始滑动距离
-    let startMoveTime = new Date();    //开始滑动的时间
+    let startLeft = Math.floor(x - this.bar.left); //记录开始滑动距离
+    let startMoveTime = new Date(); //开始滑动的时间
 
     if (!complete) {
       this.setState({
@@ -88,8 +95,8 @@ export default class Slide extends PureComponent {
       }
       const haf_block = block.width / 2;
       let move_block_left = x - left; //小方块相对于父元素的left值
-      if (move_block_left >= (offsetWidth - haf_block - 1)) {
-        move_block_left = (offsetWidth - haf_block - 1);
+      if (move_block_left >= offsetWidth - haf_block - 1) {
+        move_block_left = offsetWidth - haf_block - 1;
       }
       if (move_block_left <= 0) {
         move_block_left = haf_block;
@@ -105,23 +112,29 @@ export default class Slide extends PureComponent {
 
   end = () => {
     const endMoveTime = +new Date();
-    const { moving, complete, moveBlockLeft, preview, startMoveTime } = this.state;
+    const { moving, complete, moveBlockLeft, preview, startMoveTime } =
+      this.state;
     const { panel } = this.props;
     //判断是否重合
     if (moving && !complete) {
       this.setState({ moving: false, checking: true });
-      const moveLeftDistance = moveBlockLeft * 310 / panel.width;
+      const moveLeftDistance = (moveBlockLeft * 310) / panel.width;
       const data = {
         captchaType: 'blockPuzzle',
-        pointJson: preview.secretKey ? aesEncrypt(JSON.stringify({
-          x: moveLeftDistance,
-          y: 5.0,
-        }), preview.secretKey) : JSON.stringify({ x: moveLeftDistance, y: 5.0 }),
+        pointJson: preview.secretKey
+          ? aesEncrypt(
+              JSON.stringify({
+                x: moveLeftDistance,
+                y: 5.0,
+              }),
+              preview.secretKey,
+            )
+          : JSON.stringify({ x: moveLeftDistance, y: 5.0 }),
         token: preview.token,
         clientUid: localStorage.getItem('slider'),
         ts: Date.now(),
       };
-      check(this.props.path,data).then(res => {
+      check(this.props.path, data).then((res) => {
         if (res.repCode === '0000') {
           this.setState({
             complete: true,
@@ -130,7 +143,7 @@ export default class Slide extends PureComponent {
             moving: false,
             time: ((endMoveTime - startMoveTime) / 1000).toFixed(2),
           });
-          this.props.onSuccess(slideSecond(preview,moveLeftDistance));
+          this.props.onSuccess(slideSecond(preview, moveLeftDistance));
         } else {
           this.setState({
             complete: true,
@@ -156,7 +169,7 @@ export default class Slide extends PureComponent {
   }
 
   getData = async () => {
-    const { repCode, repData, repMsg } = await picture(this.props.path,{
+    const { repCode, repData, repMsg } = await picture(this.props.path, {
       captchaType: 'blockPuzzle',
       clientUid: localStorage.getItem('slider'),
       ts: Date.now(),
@@ -192,83 +205,109 @@ export default class Slide extends PureComponent {
   };
 
   renderError = () => {
-    return (<span>
-        <i className='ac-icon ac-warning' style={{ fontSize: '50px' }} />
+    return (
+      <span>
+        <i className="ac-icon ac-warning" style={{ fontSize: '50px' }} />
         <br />
         <br />
-      {CODE[this.state.code]}
-    </span>);
+        {CODE[this.state.code]}
+      </span>
+    );
   };
 
   render() {
     const { panel, barHeight } = this.props;
-    const { preview, leftBarWidth, moving, moveBlockLeft, complete, pass, time, checking, loading } = this.state;
+    const {
+      preview,
+      leftBarWidth,
+      moving,
+      moveBlockLeft,
+      complete,
+      pass,
+      time,
+      checking,
+      loading,
+    } = this.state;
     if (loading) {
-      return (<Loading />);
+      return <Loading />;
     }
     let className = 'ac-slide-bar-left ';
     let moveBarClass = 'ac-slide-bar-move ';
     let iconClass = 'ac-arrow-right';
-    if (complete) {//验证通过
+    if (complete) {
+      //验证通过
       className += pass ? 'ac-slide-bar-success' : 'ac-slide-bar-fail';
-      moveBarClass += pass ? 'ac-slide-bar-move-success' : 'ac-slide-bar-move-fail';
+      moveBarClass += pass
+        ? 'ac-slide-bar-move-success'
+        : 'ac-slide-bar-move-fail';
       iconClass = pass ? 'ac-success' : 'ac-fail';
     }
-    const processing = (moving || complete || checking);
+    const processing = moving || complete || checking;
     return (
-      <div className='ac-slide-container'>
-        <div className='ac-slide-panel-wrap' style={{ height: `${panel.height + 5}px` }}>
-          <div className='ac-slide-panel'
-               style={{ ...panel }}>
-            {preview.image ?
-              <img src={`data:image/png;base64,${preview.image}`}
-                   className='ac-slide-image' /> :
-              <div className='ac-fail-container' style={{ ...panel }}>
-                <div>
-                  {this.renderError()}
-                </div>
+      <div className="ac-slide-container">
+        <div
+          className="ac-slide-panel-wrap"
+          style={{ height: `${panel.height + 5}px` }}
+        >
+          <div className="ac-slide-panel" style={{ ...panel }}>
+            {preview.image ? (
+              <img
+                src={`data:image/png;base64,${preview.image}`}
+                className="ac-slide-image"
+              />
+            ) : (
+              <div className="ac-fail-container" style={{ ...panel }}>
+                <div>{this.renderError()}</div>
               </div>
-            }
-            <div className='ac-slide-refresh' onClick={this.getData}>
-              <i className='ac-icon ac-refresh ac-slide-icon-refresh' />
+            )}
+            <div className="ac-slide-refresh" onClick={this.getData}>
+              <i className="ac-icon ac-refresh ac-slide-icon-refresh" />
             </div>
-            {
-              complete &&
-              <span className={`ac-slide-tip ${pass ? 'ac-slide-success' : 'ac-slide-error'}`}>
-                 <span style={{ marginLeft: '10px' }}>
-                    {pass ? `验证成功，耗时${time}s` : '验证失败'}
-                 </span>
-             </span>
-            }
+            {complete && (
+              <span
+                className={`ac-slide-tip ${
+                  pass ? 'ac-slide-success' : 'ac-slide-error'
+                }`}
+              >
+                <span style={{ marginLeft: '10px' }}>
+                  {pass ? `验证成功，耗时${time}s` : '验证失败'}
+                </span>
+              </span>
+            )}
           </div>
-          <div className='ac-slide-bar-move-block'
-               style={{
-                 width: Math.floor((panel.width * 47) / 310) + 'px',
-                 height: panel.height,
-                 left: moveBlockLeft,
-                 backgroundSize: `${panel.width}px ${panel.height}px`,
-               }}>
-            {
-              preview.block &&
+          <div
+            className="ac-slide-bar-move-block"
+            style={{
+              width: Math.floor((panel.width * 47) / 310) + 'px',
+              height: panel.height,
+              left: moveBlockLeft,
+              backgroundSize: `${panel.width}px ${panel.height}px`,
+            }}
+          >
+            {preview.block && (
               <img
                 src={`data:image/png;base64,${preview.block}`}
-                className='ac-slide-image'
+                className="ac-slide-image"
               />
-            }
+            )}
           </div>
         </div>
         {/*bar展示*/}
-        <div className='ac-slide-bar'
-             style={{ width: panel.width, height: barHeight}}
-             ref={this.setBar}>
-          <span
-            className='ac-slide-bar-message'>{processing ? '' : '向右滑动完成验证'}</span>
+        <div
+          className="ac-slide-bar"
+          style={{ width: panel.width, height: barHeight }}
+          ref={this.setBar}
+        >
+          <span className="ac-slide-bar-message">
+            {processing ? '' : '向右滑动完成验证'}
+          </span>
           <div
             className={className}
             style={{
               width: leftBarWidth || barHeight,
               height: barHeight,
-            }}>
+            }}
+          >
             <div
               className={moveBarClass}
               onTouchStart={this.start}
@@ -277,13 +316,13 @@ export default class Slide extends PureComponent {
                 width: barHeight,
                 height: barHeight,
                 left: moveBlockLeft,
-              }}>
-              <i className={`ac-icon ac-slide-icon-right ${iconClass}`}
-                 style={{ color: processing ? '#fff' : '' }}
+              }}
+            >
+              <i
+                className={`ac-icon ac-slide-icon-right ${iconClass}`}
+                style={{ color: processing ? '#fff' : '' }}
               />
-
             </div>
-
           </div>
         </div>
       </div>

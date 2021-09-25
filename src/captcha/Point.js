@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { check, picture } from '../utils/request';
-import { aesEncrypt, CODE, storage ,pointSecond} from '../utils/utils';
-import "../assert/fonts/iconfont.css"
+import { aesEncrypt, CODE, storage, pointSecond } from '../utils/utils';
+import '../assert/fonts/iconfont.css';
 import './index.less';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 export default class Point extends PureComponent {
   static defaultProps = {
@@ -12,9 +12,9 @@ export default class Point extends PureComponent {
       width: 280,
     },
     barHeight: 40,
-    path:null,
-    onFail:()=>{},
-    onSuccess:()=>{}
+    path: null,
+    onFail: () => {},
+    onSuccess: () => {},
   };
   state = {
     preview: {},
@@ -22,7 +22,7 @@ export default class Point extends PureComponent {
     points: [],
     checkNum: 3, //默认需要点击的字数
     num: 1, //点击的记数
-    pass: false,//验证通过
+    pass: false, //验证通过
     complete: false, //验证完成
     code: '0000', //错误码
     loading: true,
@@ -46,7 +46,7 @@ export default class Point extends PureComponent {
   };
 
   getData = async () => {
-    const { repCode, repData,repMsg } = await picture(this.props.path,{
+    const { repCode, repData, repMsg } = await picture(this.props.path, {
       captchaType: 'clickWord',
       clientUid: localStorage.getItem('point'),
       ts: Date.now(),
@@ -69,7 +69,7 @@ export default class Point extends PureComponent {
         complete: true,
         pass: false,
       });
-      this.props.onFail(repMsg)
+      this.props.onFail(repMsg);
     }
   };
 
@@ -80,26 +80,29 @@ export default class Point extends PureComponent {
       this.setState({
         points: points,
       });
-      if (num === checkNum) {//点击数相同
+      if (num === checkNum) {
+        //点击数相同
         this.setState({
           bind: false,
         });
         let data = {
           captchaType: 'clickWord',
-          pointJson: preview.secretKey ?
-            aesEncrypt(JSON.stringify(points), preview.secretKey) :
-            JSON.stringify(points),
+          pointJson: preview.secretKey
+            ? aesEncrypt(JSON.stringify(points), preview.secretKey)
+            : JSON.stringify(points),
           token: preview.token,
           clientUid: localStorage.getItem('point'),
           ts: Date.now(),
         };
-        check(this.props.path, data).then(res => {
+        check(this.props.path, data).then((res) => {
           if (res.repCode === '0000') {
             this.setState({
               pass: true,
               complete: true,
             });
-            this.props.onSuccess(pointSecond(preview,this.pointTransform(points)))
+            this.props.onSuccess(
+              pointSecond(preview, this.pointTransform(points)),
+            );
           } else {
             this.setState({
               pass: false,
@@ -126,13 +129,13 @@ export default class Point extends PureComponent {
   };
 
   pointTransform = (points) => {
-    console.log("points",points)
-    return points.map(p => {
-      let x = Math.round(310 * p.x / 310)
-      let y = Math.round(155 * p.y / 155)
-      return { x, y }
-    })
-  }
+    console.log('points', points);
+    return points.map((p) => {
+      let x = Math.round((310 * p.x) / 310);
+      let y = Math.round((155 * p.y) / 155);
+      return { x, y };
+    });
+  };
   replaceWord = (preview) => {
     let word = '';
     if (preview.word) {
@@ -146,66 +149,77 @@ export default class Point extends PureComponent {
     if (complete) {
       if (pass) {
         return (
-          <span className='ac-slide-bar-message  ac-point-message-success'>
-              <i className={`ac-icon ac-success`} /> 验证成功
-        </span>
+          <span className="ac-slide-bar-message  ac-point-message-success">
+            <i className={'ac-icon ac-success'} /> 验证成功
+          </span>
         );
       } else {
         return (
-          <span className='ac-slide-bar-message  ac-point-message-fail'>
-              <i className={`ac-icon ac-fail `} /> {CODE[code]}
-        </span>
+          <span className="ac-slide-bar-message  ac-point-message-fail">
+            <i className={'ac-icon ac-fail '} /> {CODE[code]}
+          </span>
         );
       }
     }
-    return (<span className='ac-slide-bar-message'>{this.replaceWord(preview)}</span>);
+    return (
+      <span className="ac-slide-bar-message">{this.replaceWord(preview)}</span>
+    );
   };
 
   render() {
     const { panel, barHeight } = this.props;
-    const { preview, points, complete, pass,  loading } = this.state;
+    const { preview, points, complete, pass, loading } = this.state;
     if (loading) {
-      return (<Loading />);
+      return <Loading />;
     }
     let className = 'ac-slide-bar ';
-    if (complete) {//验证通过
+    if (complete) {
+      //验证通过
       className += pass ? 'ac-slide-bar-success' : 'ac-slide-bar-fail';
     }
     return (
-      <div className='ac-slide-container'>
-        <div className='ac-slide-panel-wrap' style={{ height: `${panel.height + 5}px` }}>
-          <div className='ac-slide-panel'
-               style={{
-                 ...panel,
-                 backgroundSize: `${panel.width}px ${panel.height}px`,
-                 marginBottom: '5px',
-               }}
+      <div className="ac-slide-container">
+        <div
+          className="ac-slide-panel-wrap"
+          style={{ height: `${panel.height + 5}px` }}
+        >
+          <div
+            className="ac-slide-panel"
+            style={{
+              ...panel,
+              backgroundSize: `${panel.width}px ${panel.height}px`,
+              marginBottom: '5px',
+            }}
           >
-            <div className='ac-slide-refresh' onClick={this.refresh}>
-              <i className='ac-icon ac-refresh ac-slide-icon-refresh' />
+            <div className="ac-slide-refresh" onClick={this.refresh}>
+              <i className="ac-icon ac-refresh ac-slide-icon-refresh" />
             </div>
-            {preview.image ?
-              <img src={`data:image/png;base64,${preview.image}`}
-                   className='ac-slide-image'
-                   onClick={this.canvasClick} /> :
-              <div className='ac-fail-container' style={{ ...panel }}>
+            {preview.image ? (
+              <img
+                src={`data:image/png;base64,${preview.image}`}
+                className="ac-slide-image"
+                onClick={this.canvasClick}
+              />
+            ) : (
+              <div className="ac-fail-container" style={{ ...panel }}>
                 <div>
-                  <i className='ac-icon ac-warning' style={{ fontSize: '50px' }} />
+                  <i
+                    className="ac-icon ac-warning"
+                    style={{ fontSize: '50px' }}
+                  />
                 </div>
               </div>
-            }
+            )}
             {points.map((point, index) => (
               <div
                 key={index}
-                className='ac-point-area'
+                className="ac-point-area"
                 style={{
                   top: `${point.y - 10}px`,
                   left: `${point.x - 10}px`,
                 }}
               >
-                <div>
-                  {index + 1}
-                </div>
+                <div>{index + 1}</div>
               </div>
             ))}
           </div>
@@ -215,7 +229,7 @@ export default class Point extends PureComponent {
           className={className}
           style={{
             width: panel.width,
-            height: barHeight
+            height: barHeight,
           }}
         >
           {this.renderMessage()}

@@ -1,0 +1,336 @@
+//@import "../assert/fonts/iconfont.css";
+
+.ac-slide-container {
+  position: relative;
+}
+.ac-slide-panel-wrap {
+  //height: 200px;
+}
+.ac-slide-panel {
+  position: relative;
+  box-sizing: content-box;
+  margin: 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 3px;
+  user-select: none;
+}
+
+.ac-slide-panel .ac-slide-refresh {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  z-index: 2;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ac-slide-panel .ac-slide-icon-refresh {
+  color: #fff;
+  font-size: 20px;
+}
+
+.ac-slide-panel .ac-slide-gap {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+.ac-slide-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ac-slide-tip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: 30px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  text-align: left;
+}
+
+.ac-slide-success {
+  background-color: rgba(92, 184, 92, 0.5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7f5CB85C, endcolorstr=#7f5CB85C);
+}
+.ac-slide-error {
+  background-color: rgba(217, 83, 79, 0.5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7fD9534F, endcolorstr=#7fD9534F);
+}
+
+/*滑动验证码*/
+.ac-slide-bar {
+  position: relative;
+  box-sizing: content-box;
+  margin-top: 10px;
+  text-align: center;
+  background: #f7f9fa;
+  border: 1px solid #e4e7eb;
+}
+
+.ac-slide-bar .ac-slide-bar-move {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: content-box;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 2px #ddd;
+  cursor: pointer;
+}
+
+.ac-slide-bar .ac-slide-bar-move:hover {
+  color: #ffffff;
+  background-color: #1890ff;
+}
+
+.ac-slide-bar .ac-slide-bar-move:active {
+  color: #ffffff;
+  background-color: #1890ff;
+}
+
+.ac-slide-bar .ac-slide-bar-left {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  box-sizing: content-box;
+  background: #d1e9fe;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.ac-slide-bar .ac-slide-bar-move .ac-slide-bar-move-block {
+  position: absolute;
+  z-index: 3;
+  text-align: center;
+}
+
+.ac-slide-bar .ac-slide-bar-move .ac-slide-icon-right {
+  font-size: 18px;
+}
+
+.ac-slide-bar .ac-slide-bar-message {
+  z-index: 3;
+}
+
+.ac-slide-bar-message {
+  position: relative;
+  height: 40px;
+  margin: 0 auto;
+  color: #45494c;
+  font-size: 14px;
+  line-height: 40px;
+}
+
+.ac-slide-icon-right {
+  position: relative;
+  z-index: 3;
+  display: block;
+  height: 40px;
+  margin: 0 auto;
+  color: #45494c;
+  line-height: 40px;
+}
+
+.ac-slide-icon-right:hover {
+  color: #ffffff !important;
+}
+
+.ac-slide-icon-right:active {
+  color: #ffffff !important;
+}
+
+.ac-slide-bar-fail {
+  background: #fce1e1 !important;
+  border-color: #f57a7a !important;
+  .ac-slide-icon-right {
+    color: #ffffff !important;
+  }
+}
+
+.ac-slide-bar-success {
+  background: #d2f4ef !important;
+  border-color: #52ccba !important;
+  .ac-slide-icon-right {
+    color: #ffffff !important;
+  }
+}
+
+.ac-slide-bar-move-success {
+  color: #ffffff !important;
+  background-color: #52ccba !important;
+}
+
+.ac-slide-bar-move-fail {
+  color: #ffffff !important;
+  background: #f57a7a !important;
+}
+.ac-slide-bar-move-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.ac-fail-container {
+  //background: #1890ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  > div {
+    color: #f57a7a;
+  }
+}
+
+.ac-slide-pop-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.5s;
+  user-select: none;
+  .ac-slide-pop-body {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #e4e7eb;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+  }
+  .ac-slide-pop-top {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 15px;
+    color: #45494c;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: left;
+    border-bottom: 1px solid #f9fafb;
+  }
+  .ac-slide-pop-bottom {
+    box-sizing: border-box;
+    padding: 12px;
+  }
+  .ac-slide-pop-close {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+@keyframes scaleDraw {
+  /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+  0% {
+    transform: scale(1); /*开始为原始大小*/
+  }
+  25% {
+    transform: scale(1.1); /*放大1.1倍*/
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+.ac-point-area {
+  position: absolute;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  //background-color: #1abd6c;
+  background-color: #1890ff;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation-name: scaleDraw;
+  animation-duration: 4s; /*动画所花费的时间*/
+  animation-timing-function: ease-in-out; /*动画的速度曲线*/
+  animation-iteration-count: infinite; /*动画播放的次数*/
+
+  > div {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
+}
+
+.ac-point-message-success {
+  color: #52ccba !important;
+}
+.ac-point-message-fail {
+  color: #f57a7a !important;
+}
+.ac-point-icon {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.ac-slide-down-enter,
+.ac-slide-down-appear {
+  transform: translate(0, -100%);
+}
+.ac-slide-down-enter,
+.ac-slide-down-appear,
+.ac-slide-down-leave {
+  animation-duration: 0.2s;
+  animation-play-state: paused;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+  animation-fill-mode: both;
+}
+.ac-slide-down-enter.ac-slide-down-enter-active,
+.ac-slide-down-appear.ac-slide-down-appear-active {
+  animation-name: amSlideDownIn;
+  animation-play-state: running;
+}
+.ac-slide-down-leave.ac-slide-down-leave-active {
+  animation-name: amSlideDownOut;
+  animation-play-state: running;
+}
+@keyframes amSlideDownIn {
+  0% {
+    transform: translate(0, -100%);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes amSlideDownOut {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate(0, -100%);
+  }
+}

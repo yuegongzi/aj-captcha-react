@@ -1,10 +1,5 @@
 @font-face {font-family: "ac-icon";
-  src: url('iconfont.eot?t=1614854514417'); /* IE9 */
-  src: url('iconfont.eot?t=1614854514417#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAARIAAsAAAAACLgAAAP5AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDQAqEPINXATYCJAMYCw4ABCAFhGEHWht7B8gekhSCsEcp2AZ1oJkA8fD/a+l98/8uqwDplWGhIwkcsAJuJaqq6JKKkJU1pscDTwpGzM/npi9CYaTiyCzQidZE6MTS8BM8LKTicJyJncy87Y5qbmN8z3Xc4xx+oSA6jYaOma7OVoDZbhlNhRMe0IC6sZ/wQeb+Jq8CniPSgTqvE0DbIGNgc/mltaBAwrwA4sTMM6DImZEttUEB41WzNd/FfDKK4mVxDbgLfz/+w2woQEGW4Kbl4zwjZJaaBxHu6ilMSm7u+ZyQdoEEjAMZxE2t+wwRp8cRlEaSlA3Mbyjg8FJbskzfiv8V5SgjP5FbyZsqQYaTzfTHizpUdwHm2UwNlKMuiwzKMRYFKHvids1HlkUCD6+kL0lfn3FKE3gHfAFkz9sTDAaHdXPuqQep1MyDXsPDvvr7PXX33llwKm0CFdf8Mk9o6NKZwUbOowte7A5BRrqQJbNUPFKqmrDtSzdDDOnt7hBmSbVTtUw15l3t9+6VLl4dsmSL6uZQ9+/XLQmG2o1lD1VtT4Q++JYHDwxYvaGWWmvyrIc1y1aFLt0afK3bGyYx1vn6uB2U3/ri4bNU7DLP/ydL0jT5mASs0JOnDk2yG8bu/1wzxD/S6XYO3hngGnR6kiVC2HcNYsU1/8OgXZDw3LB8/oyd59/3LNeGaVbAH32kvsq7OkoXfepmaCD5fU0lzJ/Z/cT/w4oNB0NbR+asJZ5e8X/t26+9BdO//e1055RA5YDAQ+QH1LTtxMtXxLaYDMK3pW+myK4ENE6mmiVx+5/4HX11YPuIzrGQsLIM/r/S6LUzrlyRfLAxzOcmcs7Q6ldV/A88kAqpdIg/hfCWF8VUgOpe9pqoASA9wTf8A74D96+o5Tt+qV+byACfjp+IrLF62t/tBl+jBgzJ993SqAeg9l2WwVLPutwV9dLmcWXq4hBssgDa5AcV5+/zYi794JuXDXIhKbQAA6AJhEEzGEWuoUQp6zxIJbeNluPpCPr3BHMLGFoPT8b42gXFwWEoAS5CSXCfLBPqrdKLBz/JSoaQH0kZFpOVOSJiJGSkG1ppMys4OCclKRl2LFddjfhGGyPK0gBnQKLLHKWjwiNLuQLkQOL4Ja4mPlqSOJoTBTudz9woIZtNoJ2iYEGsFG6SJGdyRARX90PhrGAHpRwihCFBjGgNWtHMWAIHzm+VKDFYY1n+agivka2XWN8lV2yAiFyyiB2MFiVcZDu0QO3o03UP97g04UWTSDg0jkhgR8vflROxGWkBzVk/yQJhScKZRiSdkkVQL66vOnxdrf397YM2vKoeRaTIUYt6NMgfM6LD7OBJjjHb5K5GlkUul1xEnLPWZaIYURSax4pm3iQBAAAAAA==') format('woff2'),
-  url('iconfont.woff?t=1614854514417') format('woff'),
-  url('iconfont.ttf?t=1614854514417') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('iconfont.svg?t=1614854514417#ac-icon') format('svg'); /* iOS 4.1- */
+  url('iconfont.woff?t=1614854514417') format('woff');
 }
 
 .ac-icon {
