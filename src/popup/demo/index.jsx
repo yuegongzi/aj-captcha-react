@@ -1,8 +1,4 @@
 import React from 'react';
-import { Popup, Icon, Loading, Slider } from 'aj-captcha-react';
+import { Popup, Captcha, Loading, Points } from 'aj-captcha-react';
 
-export default () => (
-  <Popup>
-    <Slider />
-  </Popup>
-);
+export default () => <Captcha path="https://api.ejiexi.com/system/cgi" />;

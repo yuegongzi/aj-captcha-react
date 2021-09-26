@@ -49,36 +49,38 @@ export function aesEncrypt(word: any, keyWord = 'awKsGlMcdPMEhR1B') {
   return encrypted.toString();
 }
 
-export function addListener(_this: any) {
-  window.removeEventListener('touchmove', function (e) {
-    _this.move(e);
-  });
-  window.removeEventListener('mousemove', function (e) {
-    _this.move(e);
-  });
-
-  window.removeEventListener('touchend', function () {
-    _this.end();
-  });
-  window.removeEventListener('mouseup', function () {
-    _this.end();
-  });
-
-  window.addEventListener('touchmove', function (e) {
-    _this.move(e);
-  });
-  window.addEventListener('mousemove', function (e) {
-    _this.move(e);
-  });
-
-  //鼠标松开
-  window.addEventListener('touchend', function () {
-    _this.end();
-  });
-  window.addEventListener('mouseup', function () {
-    _this.end();
-  });
-}
+export const Anchor = {
+  slide: {
+    captchaType: 'blockPuzzle',
+    name: 'slider',
+    data: (repData: any) => ({
+      image: repData.originalImageBase64,
+      block: repData.jigsawImageBase64,
+      token: repData.token,
+      secretKey: repData.secretKey,
+    }),
+  },
+  auto: {
+    captchaType: 'blockPuzzle',
+    name: 'slider',
+    data: (repData: any) => ({
+      image: repData.originalImageBase64,
+      block: repData.jigsawImageBase64,
+      token: repData.token,
+      secretKey: repData.secretKey,
+    }),
+  },
+  point: {
+    captchaType: 'clickWord',
+    name: 'point',
+    data: (repData: any) => ({
+      image: repData.originalImageBase64,
+      word: repData.wordList,
+      token: repData.token,
+      secretKey: repData.secretKey,
+    }),
+  },
+};
 
 /**
  * 加密滑动验证二次校验参数

@@ -1,8 +1,8 @@
 @import '../../styles/index.less';
 
 .ac-popup {
+  display: none;
   box-sizing: border-box;
-
   &__mask {
     position: fixed;
     top: 0;
@@ -11,6 +11,9 @@
     height: 100%;
     margin: 0;
     background: none;
+  }
+  &--visible {
+    display: block;
   }
 
   &__body {
@@ -26,7 +29,7 @@
   }
 
   @media only screen and (max-width: 639px) {
-    &__container {
+    &__body {
       left: 50%;
       margin-left: -(@width / 2) - @card-padding;
     }

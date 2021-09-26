@@ -1,3 +1,6 @@
 import type { BaseTypeProps } from '../utils';
 
-export type PopupProps = BaseTypeProps;
+export interface PopupProps extends BaseTypeProps {
+  visible?: boolean;
+  onCancel?: () => void;
+}

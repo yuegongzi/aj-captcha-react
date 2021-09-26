@@ -1,6 +1,7 @@
 @import '../../styles/index.less';
 
 .ac-slider {
+  user-select: none;
   &__image {
     width: @width;
     height: @height;
@@ -18,10 +19,12 @@
     height: @height;
     margin-top: @card-padding;
     margin-left: @card-padding;
-    cursor: pointer;
-
     > img {
       height: 100%;
+      background: transparent;
+    }
+    > img:active {
+      background: none;
     }
   }
 

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import type { SliderProps } from './PropsType';
-import { createNamespace, toImg } from '../utils';
+import { createNamespace, toImg, slideSecond } from '../utils';
 import Icon from '../icon';
 import './style/index.less';
 import classNames from 'classnames';
@@ -60,7 +60,7 @@ const Slider: FC<SliderProps> = (props) => {
       x: (e.clientX || e.touches[0].clientX) - origin.x,
       y: (e.clientY || e.touches[0].clientY) - origin.y,
     };
-    if (move.x > 250 || move.x < 0) return; // Don't update if outside bounds of captcha
+    if (move.x > 249 || move.x < 0) return; // Don't update if outside bounds of captcha
     setTrail({
       x: trail.x.concat([move.x]),
       y: trail.y.concat([move.y]),
@@ -71,9 +71,10 @@ const Slider: FC<SliderProps> = (props) => {
     if (!solving || submit) return;
     setSubmit(true);
     const left = trail.x[trail.x.length - 1];
-    const moveLeftDistance = (left * 310) / 280;
+    const distance = Math.round((left * 310) / 280);
     const validated = await onValid(
-      JSON.stringify({ x: moveLeftDistance, y: 5.0 }),
+      JSON.stringify({ x: distance, y: 5.0 }),
+      slideSecond(captcha, distance),
     );
     setSliderVariant(validated ? slider.success : slider.failure);
   };
@@ -88,7 +89,7 @@ const Slider: FC<SliderProps> = (props) => {
     setSliderVariant(slider.default);
   };
 
-  const scaleSliderPosition = (x: number) => 5 + 0.93 * x;
+  const scaleSliderPosition = (x: number) => (x > 240 ? 240 : x);
   return (
     <div
       className={classNames(className, bem())}
@@ -104,8 +105,6 @@ const Slider: FC<SliderProps> = (props) => {
       </div>
       <div
         className={classNames(bem('puzzle'))}
-        onMouseDown={handleStart}
-        onTouchStart={handleStart}
         style={{
           left: `${scaleSliderPosition(trail.x[trail.x.length - 1])}px`,
         }}
