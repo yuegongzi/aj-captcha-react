@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { SliderProps } from './PropsType';
-import { createNamespace, picture, toImg } from '../utils';
+import { createNamespace, toImg } from '../utils';
 import Icon from '../icon';
 import './style/index.less';
 import classNames from 'classnames';
@@ -32,11 +32,10 @@ const slider = {
 };
 
 const Slider: FC<SliderProps> = (props) => {
-  const { className } = props;
+  const { className, captcha, onValid } = props;
   const [sliderVariant, setSliderVariant] = useState(slider.default);
-  const [captcha, setCaptcha] = useState<any>({});
   const [solving, setSolving] = useState<boolean>(false);
-  const [submittedResponse, setSubmittedResponse] = useState(false);
+  const [submit, setSubmit] = useState(false);
   const [origin, setOrigin] = useState({
     x: 0,
     y: 0,
@@ -46,7 +45,7 @@ const Slider: FC<SliderProps> = (props) => {
     y: [0],
   });
   const handleStart = (e: any) => {
-    if (submittedResponse) return;
+    if (submit) return;
     setOrigin({
       x: e.clientX || e.touches[0].clientX,
       y: e.clientY || e.touches[0].clientY,
@@ -56,7 +55,7 @@ const Slider: FC<SliderProps> = (props) => {
   };
 
   const handleMove = (e: any) => {
-    if (!solving || submittedResponse) return;
+    if (!solving || submit) return;
     const move = {
       x: (e.clientX || e.touches[0].clientX) - origin.x,
       y: (e.clientY || e.touches[0].clientY) - origin.y,
@@ -68,20 +67,19 @@ const Slider: FC<SliderProps> = (props) => {
     });
   };
 
-  const handleEnd = () => {
-    if (!solving || submittedResponse) return;
-    setSubmittedResponse(true);
-    setSliderVariant(slider.failure);
-    // completeCaptcha(
-    //   scaleSliderPosition(trail.x[trail.x.length - 1]),
-    //   trail,
-    // ).then((validated) => {
-    //   setSliderVariant(validated ? slider.success : slider.failure);
-    // });
+  const handleEnd = async () => {
+    if (!solving || submit) return;
+    setSubmit(true);
+    const left = trail.x[trail.x.length - 1];
+    const moveLeftDistance = (left * 310) / 280;
+    const validated = await onValid(
+      JSON.stringify({ x: moveLeftDistance, y: 5.0 }),
+    );
+    setSliderVariant(validated ? slider.success : slider.failure);
   };
 
   const handleEnter = () => {
-    if (solving || submittedResponse) return;
+    if (solving || submit) return;
     setSliderVariant(slider.active);
   };
 
@@ -89,29 +87,6 @@ const Slider: FC<SliderProps> = (props) => {
     if (solving) return;
     setSliderVariant(slider.default);
   };
-
-  const fetch = async () => {
-    const { repCode, repData } = await picture(
-      'https://api.ejiexi.com/system/cgi',
-      {
-        captchaType: 'blockPuzzle',
-        clientUid: localStorage.getItem('slider'),
-        ts: Date.now(),
-      },
-    );
-    if (repCode === '0000') {
-      setCaptcha({
-        image: repData.originalImageBase64,
-        block: repData.jigsawImageBase64,
-        token: repData.token,
-        secretKey: repData.secretKey,
-        code: repCode,
-      });
-    }
-  };
-  useEffect(() => {
-    fetch();
-  }, []);
 
   const scaleSliderPosition = (x: number) => 5 + 0.93 * x;
   return (
