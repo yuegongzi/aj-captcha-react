@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-export const CODE = {
+export const CODE: Record<any, string> = {
   '0000': '',
   9999: '服务器内部异常',
   '0011': '参数不能为空',
@@ -109,4 +109,14 @@ export function pointSecond(preview: any, checkPosArr: any) {
     captchaVerification = aesEncrypt(captchaVerification, preview.secretKey);
   }
   return { captchaVerification };
+}
+
+export function noop() {}
+
+export function isFunction(val: unknown): val is Function {
+  return typeof val === 'function';
+}
+
+export function toImg(base64: string) {
+  return `data:image/png;base64,${base64}`;
 }

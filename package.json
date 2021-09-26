@@ -43,6 +43,8 @@
     ]
   },
   "dependencies": {
+    "classnames": "^2.3.1",
+    "crypto-js": "^4.1.1",
     "react": "^17.0.2",
     "react-transition-group": "^4.4.2",
     "umi-request": "^1.4.0"

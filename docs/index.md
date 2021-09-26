@@ -1,2 +1,9 @@
+## 快速开始
 
-## Hello aj-captcha-react!
+```bash
+$ npm install aj-captcha-react
+or
+$ yarn add aj-captcha-react
+
+
+```

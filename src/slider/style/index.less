@@ -1,0 +1,130 @@
+@import '../../styles/index.less';
+
+.ac-slider {
+  &__image {
+    width: @width;
+    height: @height;
+
+    > img {
+      width: 100%;
+    }
+  }
+
+  &__puzzle {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: @slider-width;
+    height: @height;
+    margin-top: @card-padding;
+    margin-left: @card-padding;
+    cursor: pointer;
+
+    > img {
+      height: 100%;
+    }
+  }
+
+  &__container {
+    position: relative;
+    width: @width;
+    height: 44px;
+    margin-top: 10px;
+  }
+
+  &__track {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: @width;
+    height: @track-height;
+    background-color: @card-track-background;
+    border-radius: @track-height / 2;
+    box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  &__label {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: @width;
+    height: @track-height;
+    padding-left: 20px;
+    color: @card-track-label;
+    font-weight: 400;
+    font-size: 13px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+    cursor: default;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: 0;
+    height: @track-height;
+    border-radius: @track-height / 2;
+    box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.2);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &--active,
+    &--default {
+      background-color: @card-track-active;
+    }
+
+    &--success {
+      background-color: @card-track-success;
+    }
+
+    &--failure {
+      background-color: @card-track-failure;
+    }
+  }
+
+  &__control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: @control-size;
+    height: @control-size;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &--default {
+      background-color: @card-control-background;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    &--success,
+    &--active,
+    &--failure {
+      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    &--active {
+      background-color: @card-control-active;
+    }
+
+    &--success {
+      background-color: @card-control-success;
+    }
+
+    &--failure {
+      background-color: @card-control-failure;
+    }
+  }
+}

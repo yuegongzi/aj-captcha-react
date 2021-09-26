@@ -1,4 +1,4 @@
-import React from 'react';
-import './style/index.less';
+import Loading from './Loading';
 
-export default () => <div className="ac-loader" />;
+export default Loading;
+export type { LoadingProps } from './PropsType';

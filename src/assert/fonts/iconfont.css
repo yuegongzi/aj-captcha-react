@@ -1,5 +1,6 @@
-@font-face {font-family: "ac-icon";
-  url('iconfont.woff?t=1614854514417') format('woff');
+@font-face {
+  font-family: "ac-icon";
+  src: url('iconfont.woff?t=1614854514417') format('woff');
 }
 
 .ac-icon {
