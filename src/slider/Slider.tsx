@@ -13,21 +13,31 @@ const slider = {
     className: 'default',
     icon: 'arrow',
     color: '#000',
+    spin: false
+  },
+  submit: {
+    className: 'active',
+    icon: 'loading',
+    color: '#fff',
+    spin: true
   },
   active: {
     className: 'active',
     icon: 'arrow',
     color: '#fff',
+    spin: false
   },
   success: {
     className: 'success',
     icon: 'success',
     color: '#fff',
+    spin: false
   },
   failure: {
     className: 'failure',
     icon: 'failure',
     color: '#fff',
+    spin: false
   },
 };
 
@@ -88,6 +98,7 @@ const Slider: FC<SliderProps> = (props) => {
   const handleEnd = async () => {
     if (!solving || submit) return;
     setSubmit(true);
+    setSliderVariant(slider.submit)
     const left = trail.x[trail.x.length - 1];
     const distance = Math.round((left * 310) / 280);
     const validated = await onValid(
@@ -150,7 +161,8 @@ const Slider: FC<SliderProps> = (props) => {
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
-          <Icon name={sliderVariant.icon} color={sliderVariant.color} />
+          <Icon spin={sliderVariant.spin}
+                name={sliderVariant.icon} color={sliderVariant.color} />
         </div>
       </div>
     </div>

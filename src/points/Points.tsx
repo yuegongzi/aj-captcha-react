@@ -24,6 +24,12 @@ const point = {
       return word.replaceAll(',', '、');
     },
   },
+  submit: {
+    className: 'active',
+    icon: 'loading',
+    spin: true,
+    text: () => '校验中...',
+  },
   success: {
     className: 'success',
     icon: 'success',
@@ -50,6 +56,7 @@ const Points: FC<PointsProps> = (props) => {
       const pointList = [...points, getMouse(e)];
       setPoints(pointList);
       if (pointList.length === CHECK_WORD) {
+        setPointVariant(point.submit)
         const validate = await onValid(
           JSON.stringify(pointList),
           pointSecond(captcha, pointList),
@@ -84,7 +91,8 @@ const Points: FC<PointsProps> = (props) => {
         </div>
       ))}
       <div className={classNames(bem('bar', [pointVariant.className]))}>
-        <Icon name={pointVariant.icon} color='#fff' />
+        <Icon spin={pointVariant.spin}
+              name={pointVariant.icon} color='#fff' />
         <div>{pointVariant.text(captcha)}</div>
       </div>
     </div>
