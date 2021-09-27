@@ -26,22 +26,6 @@
   },
   "main": "index.js",
   "module": "index.esm.js",
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
-  },
   "dependencies": {
     "classnames": "^2.3.1",
     "crypto-js": "^4.1.1",
