@@ -1,0 +1,14 @@
+src
+node_modules
+docs
+.umirc.ts
+.prettierignore
+.prettierrc
+.prettierrc.js
+.editorconfig
+.eslintignore
+.eslintrc.js
+.fatherrc.ts
+.gitignore
+.idea
+.git

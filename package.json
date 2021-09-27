@@ -24,8 +24,9 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
-  "main": "index.js",
-  "module": "index.esm.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "dependencies": {
     "classnames": "^2.3.1",
     "crypto-js": "^4.1.1",
