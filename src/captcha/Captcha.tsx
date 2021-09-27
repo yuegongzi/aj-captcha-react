@@ -52,7 +52,9 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   };
 
   useEffect(()=>{
-    fetch()
+    if(count > 0){
+      fetch()
+    }
   },[count])
 
   const fail = () => {
