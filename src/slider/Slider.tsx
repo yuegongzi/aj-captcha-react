@@ -117,7 +117,7 @@ const Slider: FC<SliderProps> = (props) => {
           className={classNames(bem('label'))}
           style={{ opacity: solving ? 0 : 1 }}
         >
-          <span>滑动完成验证</span>
+          <span>向右滑动完成验证</span>
         </div>
         <div
           className={classNames(bem('mask', [sliderVariant.className]))}

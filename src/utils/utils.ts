@@ -119,6 +119,6 @@ export function isFunction(val: unknown): val is Function {
   return typeof val === 'function';
 }
 
-export function toImg(base64: string) {
+export function toImg(base64: string | undefined) {
   return `data:image/png;base64,${base64}`;
 }

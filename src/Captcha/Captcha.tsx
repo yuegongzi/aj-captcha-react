@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 import React, {
   forwardRef,
+  Fragment,
   useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
-import type { CaptchaProps, CaptchaType } from './PropsType';
+import type { CaptchaModel, CaptchaProps, CaptchaType } from './PropsType';
 import {
   aesEncrypt,
   Anchor,
@@ -17,22 +18,24 @@ import {
 } from '../utils';
 import './style/index.less';
 import Popup from '../popup';
+import Loading from '../loading';
 import Slider from '../slider';
 import Points from '../points';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 const [bem] = createNamespace('captcha');
 
 const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
-  const { type, onCancel, onSuccess, onFail, path } = props;
-  const [visible, toggle] = useState<boolean>(true);
+  const { type, onCancel, onSuccess, onFail, path, className, style } = props;
+  const [visible, toggle] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
-  const [captcha, setCaptcha] = useState<any>({});
+  const [captcha, setCaptcha] = useState<CaptchaModel>({});
   const [captchaType, setCaptchaType] = useState<CaptchaType>(
     props.captchaType,
   );
 
   const fetch = async () => {
+    toggle(true);
     const vr = Anchor[captchaType];
     const { repCode, repData } = await picture(path, {
       captchaType: vr.captchaType,
@@ -41,14 +44,12 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
     });
     if (repCode === '0000') {
       setCaptcha(vr.data(repData));
-      toggle(true);
     }
   };
 
   const valid = (param: string, second: any) => {
     return new Promise<boolean>((resolve) => {
       const vr = Anchor[captchaType];
-      console.log(captcha);
       const data = {
         captchaType: vr.captchaType,
         pointJson: captcha.secretKey
@@ -61,7 +62,6 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
       check(path, data)
         .then((res) => {
           const validate: boolean = res.repCode === '0000';
-          console.log(res);
           if (validate) {
             onSuccess(second);
           } else {
@@ -80,8 +80,6 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    //TODO 删除
-    fetch();
     storage();
   }, []);
 
@@ -102,23 +100,22 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
 
   const renderBody = () => {
     if (['auto', 'slide'].includes(captchaType)) {
-      return <Slider onValid={valid} captcha={captcha} />;
+      if (captcha.image) {
+        return <Slider onValid={valid} captcha={captcha} />;
+      }
+      return <Loading />;
     }
-    return (
-      <div className={classNames(bem('body'))}>
-        <Points onValid={valid} captcha={captcha} />
-      </div>
-    );
+    return <Points onValid={valid} captcha={captcha} />;
   };
-
-  if (type === 'popup') {
-    return (
-      <Popup visible={visible} onCancel={cancel}>
+  const El = type === 'embed' ? Fragment : Popup;
+  return (
+    <div className={classNames(bem(), className)} style={style}>
+      <El visible={visible} onCancel={cancel}>
         {renderBody()}
-      </Popup>
-    );
-  }
-  return renderBody();
+      </El>
+      {props.children}
+    </div>
+  );
 });
 
 Captcha.defaultProps = {

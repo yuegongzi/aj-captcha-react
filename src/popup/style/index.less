@@ -10,17 +10,17 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    background: none;
   }
   &--visible {
-    display: block;
+    display: inline-block;
   }
 
   &__body {
-    position: relative;
+    position: absolute;
+    z-index: 10000;
     width: @width;
     min-height: @height + 60px;
-    margin-top: 50px - @height;
+    margin-top: -(@height + 30px);
     margin-left: -7px;
     padding: @card-padding @card-padding 0 @card-padding;
     background-color: @card-background;
