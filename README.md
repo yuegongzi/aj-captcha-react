@@ -1,43 +1,40 @@
-# aj-captcha-react
-实现行为验证码 包含滑动式和点击式两种
+## Captcha
+[AJ-Captcha](https://gitee.com/anji-plus/captcha)  React版 ,界面优化调整 支持滑块和点选切换
+
+
+![alt slide.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/slide.png)
+
+![alt point.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/point.png)
+
+
 ## Getting Started
 
 Install dependencies,
 
 ```bash
 
-// 安装 aj-captcha-react
 $ yarn add aj-captcha-react
 
   // or
+  
 $ npm install aj-captcha-react
 ```
 
 
 ## API
 
-|属性|说明|类型|默认值|
-|----|----|-----|----|
-|panel|面板属性,设置其宽和高|Object|`{height: 200,width: 310}`|
-|barHeight|滑动块元素高度|Number|40|
-|onFail|校验失败时的函数回调|Function|-|
-|onSuccess|校验成功时的函数回调,会将二次校验参数作为参数传递|Function|-|
-|type|显示校验模块的方式,可选popup(弹出),embed(嵌入)|String|popup|
-|captchaType|校验模式,可选slide(滑动),point(点选),auto(智能)|String|auto|
-|path|后端路径前缀|String|-|
+| 属性        | 说明                                              | 类型     | 默认值                     |
+| ----------- | ------------------------------------------------- | -------- | -------------------------- |
+| onFail      | 校验失败时的函数回调                              | Function | -                          |
+| onSuccess   | 校验成功时的函数回调,会将二次校验参数作为参数传递 | Function | -                          |
+| type        | 显示校验模块的方式,可选 point(点选),slide(弹出)   | String   | auto                      |
+| path        | 后端路径前缀                                      | String   | -                          |
 
 
-## 如何使用
 
-```bash
-$ npm install aj-captcha-react
-or 
-$ yarn add aj-captcha-react
+## Demo
 
-```
-
-
-```js
+```jsx
 import React, { useRef } from 'react';
 import { Captcha } from 'aj-captcha-react';
 

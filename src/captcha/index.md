@@ -2,6 +2,11 @@
 [AJ-Captcha](https://gitee.com/anji-plus/captcha)  React版 ,界面优化调整 支持滑块和点选切换
 
 
+![alt slide.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/slide.png)
+
+![alt point.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/point.png)
+
+
 ## API
 
 | 属性        | 说明                                              | 类型     | 默认值                     |
