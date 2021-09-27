@@ -1,4 +1,6 @@
 ## Captcha
+[AJ-Captcha](https://gitee.com/anji-plus/captcha)  React版 ,界面优化调整 支持滑块和点选切换
+
 
 ## API
 

@@ -1,4 +1,4 @@
-## 快速开始
+## quick start
 
 ```bash
 $ npm install aj-captcha-react
