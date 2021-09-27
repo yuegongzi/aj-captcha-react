@@ -29,34 +29,47 @@ $ npm install aj-captcha-react
 
 ## 如何使用
 
-```jsx
-import React, { PureComponent } from "react"
-import { Captcha } from "aj-captcha-react"
+```bash
+$ npm install aj-captcha-react
+or 
+$ yarn add aj-captcha-react
 
-export default class Demo extends PureComponent {
-  captcha = React.createRef()
+```
 
-  click =()=> {
-    if (this.captcha) {
-      this.captcha.current.verify()
-    }
-  }
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.click} style={{border:"none",
-            color:"#fff",
-          width:"100px",
-          height:"50px",lineHeight:"50p",
-          background:"#1890ff"}}>点击</button>
-        <Captcha 
-          onSuccess={(data)=>console.log(data)}
-          path="https://api.xxx.com/system/cgi"
-          ref={this.captcha}>
-        </Captcha>
-      </div>
-    )
-  }
+```js
+import React, { useRef } from 'react';
+import { Captcha } from 'aj-captcha-react';
+
+export default () => {
+  const ref = useRef();
+
+  const click = () => {
+    ref.current?.verify();
+  };
+
+  return (
+    <Captcha
+      onSuccess={(data) => console.log(data)}
+      path='https://api.xxx.com'
+      type='auto'
+      ref={ref}
+    >
+      <button
+        onClick={click}
+        style={{
+          border: 'none',
+          color: '#fff',
+          width: '100px',
+          height: '50px',
+          lineHeight: '50p',
+          background: '#1890ff',
+        }}
+      >
+        点击
+      </button>
+    </Captcha>
+  );
 }
+
 ```
