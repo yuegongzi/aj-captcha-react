@@ -2,8 +2,6 @@ import type { BaseTypeProps } from '../utils';
 
 export type CaptchaType = 'auto' | 'slide' | 'point';
 
-export type Type = 'popup' | 'embed';
-
 export interface CaptchaModel {
   image?: string;
   token?: string;
@@ -22,12 +20,7 @@ export interface CaptchaProps extends BaseTypeProps {
    * 验证码类型
    * @default auto
    */
-  captchaType: CaptchaType;
-  /**
-   * 类型
-   * @default popup
-   */
-  type: Type;
+  type: CaptchaType;
 
   /**
    * 取消事件

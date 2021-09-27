@@ -9,7 +9,7 @@
  * b(['disabled', 'primary']) // 'button button--disabled button--primary'
  */
 
-export type Mod = string | { [key: string]: any };
+export type Mod = string | Record<string, any>;
 export type Mods = Mod | Mod[];
 
 function gen(name: string, mods?: Mods): string {
