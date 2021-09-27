@@ -6,8 +6,9 @@ export default () => {
   return (
     <Captcha
       ref={ref}
+      type='point'
       style={{ marginLeft: '200px' }}
-      path="https://api.ejiexi.com/system/cgi"
+      path='https://api.ejiexi.com/system/cgi'
     >
       <button onClick={() => ref.current?.verify()}>点击验证</button>
     </Captcha>

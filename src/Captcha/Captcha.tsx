@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import React, {
   forwardRef,
-  Fragment,
   useEffect,
   useImperativeHandle,
   useState,
@@ -22,29 +21,56 @@ import Loading from '../loading';
 import Slider from '../slider';
 import Points from '../points';
 import classNames from 'classnames';
+import useSetState from '../utils/hooks';
 
 const [bem] = createNamespace('captcha');
 
 const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   const { type, onCancel, onSuccess, onFail, path, className, style } = props;
   const [visible, toggle] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
-  const [captcha, setCaptcha] = useState<CaptchaModel>({});
-  const [captchaType, setCaptchaType] = useState<CaptchaType>(
-    props.captchaType,
-  );
-
+  const [captcha,setCaptcha] = useState<CaptchaModel>({})
+  const [state, setState] = useSetState<{
+    count: number,captchaType: CaptchaType
+  }>({
+    count: 0,
+    captchaType: type
+  });
+  const {count,captchaType} = state;
   const fetch = async () => {
     toggle(true);
     const vr = Anchor[captchaType];
-    const { repCode, repData } = await picture(path, {
+    const { repCode, repData,repMsg } = await picture(path, {
       captchaType: vr.captchaType,
       clientUid: localStorage.getItem(vr.name),
       ts: Date.now(),
     });
     if (repCode === '0000') {
       setCaptcha(vr.data(repData));
+    }else {
+      onFail(repMsg)
     }
+  };
+
+  useEffect(()=>{
+    fetch()
+  },[count])
+
+  const fail = () => {
+    const c = count + 1;
+    if (c > 2 && captchaType === 'auto') {
+      setState({
+        count: c, captchaType: 'point'
+      })
+    }else {
+      setState({count: c})
+    }
+  };
+  const success = (data: any) => {
+    setTimeout(()=>{
+      onSuccess(data);
+      toggle(false);
+      setCaptcha({})
+    },1000)
   };
 
   const valid = (param: string, second: any) => {
@@ -63,9 +89,9 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
         .then((res) => {
           const validate: boolean = res.repCode === '0000';
           if (validate) {
-            onSuccess(second);
+            success(second);
           } else {
-            onFail('');
+            fail();
           }
           resolve(validate);
         })
@@ -83,44 +109,28 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
     storage();
   }, []);
 
-  const fail = () => {
-    setCount(count + 1);
-    if (count >= 1 && captchaType === 'auto') {
-      setCaptchaType('point');
-      return false;
-    }
-    return true;
-  };
-  const success = (data: any) => {
-    setTimeout(() => {
-      toggle(false);
-      onSuccess(data);
-    }, 1000);
-  };
 
   const renderBody = () => {
-    if (['auto', 'slide'].includes(captchaType)) {
-      if (captcha.image) {
-        return <Slider onValid={valid} captcha={captcha} />;
-      }
+    if (! captcha.image) {
       return <Loading />;
+    }
+    if (['auto', 'slide'].includes(captchaType)) {
+      return <Slider onValid={valid} captcha={captcha} />;
     }
     return <Points onValid={valid} captcha={captcha} />;
   };
-  const El = type === 'embed' ? Fragment : Popup;
   return (
     <div className={classNames(bem(), className)} style={style}>
-      <El visible={visible} onCancel={cancel}>
+      <Popup visible={visible} onCancel={cancel}>
         {renderBody()}
-      </El>
+      </Popup>
       {props.children}
     </div>
   );
 });
 
 Captcha.defaultProps = {
-  captchaType: 'slide', // slider point
-  type: 'popup', // embed 嵌入式
+  type: 'auto', // slider point auto
   onCancel: noop,
   onFail: noop,
   onSuccess: noop,

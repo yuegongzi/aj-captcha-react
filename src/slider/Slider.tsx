@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { SliderProps } from './PropsType';
 import { createNamespace, toImg, slideSecond } from '../utils';
 import Icon from '../icon';
@@ -44,6 +44,24 @@ const Slider: FC<SliderProps> = (props) => {
     x: [0],
     y: [0],
   });
+
+  useEffect(()=>{
+    if(captcha.image !== null){
+      setSliderVariant(slider.default)
+      setSolving(false)
+      setSubmit(false)
+      setOrigin({
+        x: 0,
+        y: 0,
+      })
+      setTrail(
+        {
+          x: [0],
+          y: [0],
+        }
+      )
+    }
+  },[captcha])
   const handleStart = (e: any) => {
     if (submit) return;
     setOrigin({
@@ -101,7 +119,7 @@ const Slider: FC<SliderProps> = (props) => {
       onMouseLeave={handleEnd}
     >
       <div className={classNames(bem('image'))}>
-        <img alt="" src={toImg(captcha.image)} />
+        {captcha.image && <img alt='' src={toImg(captcha.image)} />}
       </div>
       <div
         className={classNames(bem('puzzle'))}
@@ -109,7 +127,7 @@ const Slider: FC<SliderProps> = (props) => {
           left: `${scaleSliderPosition(trail.x[trail.x.length - 1])}px`,
         }}
       >
-        <img alt="" src={toImg(captcha.block)} />
+        <img alt='' src={toImg(captcha.block)} />
       </div>
       <div className={classNames(bem('container'))}>
         <div className={classNames(bem('track'))} />

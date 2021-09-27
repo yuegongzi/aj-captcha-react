@@ -31,11 +31,11 @@
     align-content: center;
     justify-content: center;
     width: @width;
-    height: 30px;
+    height: @control-size;
     margin-top: 10px;
-    color: @card-track-label;
+    color: @track-label;
     font-size: 14px;
-    line-height: 30px;
+    line-height: @control-size;
     text-align: center;
     background: #f7f9fa;
     border: 1px solid #e4e7eb;
@@ -44,12 +44,12 @@
     }
     &--success {
       color: #fff;
-      background: @card-control-success;
+      background: @color-success;
     }
 
     &--failure {
       color: #fff;
-      background: @card-control-failure;
+      background: @color-failure;
     }
   }
 
@@ -66,8 +66,7 @@
     font-weight: bold;
     font-size: 12px;
     text-align: center;
-    //background-color: #1abd6c;
-    background-color: #1890ff;
+    background-color: @brand-color;
     border: 3px solid rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     animation-name: scaleDr;

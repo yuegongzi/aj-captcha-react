@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Point, PointsProps } from './PropsType';
 import Icon from '../icon';
 import { createNamespace, toImg, pointSecond } from '../utils';
@@ -59,25 +59,32 @@ const Points: FC<PointsProps> = (props) => {
     }
   };
 
+  useEffect(()=>{
+    if(captcha.image !== null){
+      setPointVariant(point.default)
+      setPoints([])
+    }
+  },[captcha])
+
   return (
     <div className={classNames(className, bem())}>
       <div className={classNames(bem('image'))}>
-        <img alt="" src={toImg(captcha.image)} onClick={onClick} />
+        {captcha.image && <img alt='' src={toImg(captcha.image)} onClick={onClick} />}
       </div>
       {points.map((p, index) => (
         <div
           key={index}
           className={classNames(bem('point'))}
           style={{
-            top: `${p.y - 10}px`,
-            left: `${p.x - 10}px`,
+            top: `${p.y }px`,
+            left: `${p.x }px`,
           }}
         >
           <div> {index + 1}</div>
         </div>
       ))}
       <div className={classNames(bem('bar', [pointVariant.className]))}>
-        <Icon name={pointVariant.icon} color="#fff" />
+        <Icon name={pointVariant.icon} color='#fff' />
         <div>{pointVariant.text(captcha)}</div>
       </div>
     </div>
