@@ -1,3 +1,5 @@
+import type { BaseTypeProps } from '../utils';
+
 export type CaptchaType = 'auto' | 'slide' | 'point';
 
 export type Type = 'popup' | 'embed';
@@ -10,7 +12,7 @@ export interface CaptchaModel {
   block?: string;
 }
 
-export interface CaptchaProps {
+export interface CaptchaProps extends BaseTypeProps {
   /**
    * 后台路径前缀
    */
