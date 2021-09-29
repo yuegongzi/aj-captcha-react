@@ -5,6 +5,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
+    "declaration": true,
+    "declarationDir": "es",
     "jsx": "react",
     "esModuleInterop": true,
     "allowJs": true,
