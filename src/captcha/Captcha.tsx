@@ -34,7 +34,7 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
       ts: Date.now(),
     });
     const msg = CODE[repCode] || '请刷新页面再试';
-    if (repCode !== '0000') {
+    if (repCode === '0000') {
       setError('')
       setCaptcha(vr.data(repData));
     } else {
