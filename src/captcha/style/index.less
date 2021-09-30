@@ -1,6 +1,33 @@
 @import '../../styles/index';
 
 .ac-captcha {
-  &__body {
+  &__error {
+    padding-top: 20px;
+    width: @width;
+    min-height: @height;
+    background-color: #ffffff;
+    text-align: center;
+  }
+
+  &__icon{
+    margin-top: 15px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    &-wrap{
+      background-color: @color-failure;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      .ac-icon{
+        margin-top: 14px;
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__text{
+    padding-top: 15px;
+    color: @track-label;
   }
 }

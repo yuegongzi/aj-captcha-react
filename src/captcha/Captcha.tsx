@@ -1,20 +1,7 @@
 import type { FC } from 'react';
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import type { CaptchaModel, CaptchaProps, CaptchaType } from './PropsType';
-import {
-  aesEncrypt,
-  Anchor,
-  check,
-  createNamespace,
-  noop,
-  picture,
-  storage,
-} from '../utils';
+import { aesEncrypt, Anchor, check, CODE, createNamespace, noop, picture, storage } from '../utils';
 import './style/index.less';
 import Popup from '../popup';
 import Loading from '../loading';
@@ -22,57 +9,62 @@ import Slider from '../slider';
 import Points from '../points';
 import classNames from 'classnames';
 import useSetState from '../utils/hooks';
+import Icon from '../icon';
 
 const [bem] = createNamespace('captcha');
 
 const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   const { type, onCancel, onSuccess, onFail, path, className, style } = props;
   const [visible, toggle] = useState<boolean>(false);
-  const [captcha,setCaptcha] = useState<CaptchaModel>({})
+  const [error, setError] = useState<string>('');
+  const [captcha, setCaptcha] = useState<CaptchaModel>({});
   const [state, setState] = useSetState<{
-    count: number,captchaType: CaptchaType
+    count: number, captchaType: CaptchaType
   }>({
     count: 0,
-    captchaType: type
+    captchaType: type,
   });
-  const {count,captchaType} = state;
+  const { count, captchaType } = state;
   const fetch = async () => {
     toggle(true);
     const vr = Anchor[captchaType];
-    const { repCode, repData,repMsg } = await picture(path, {
+    const { repCode, repData } = await picture(path, {
       captchaType: vr.captchaType,
       clientUid: localStorage.getItem(vr.name),
       ts: Date.now(),
     });
-    if (repCode === '0000') {
+    const msg = CODE[repCode] || '请刷新页面再试';
+    if (repCode !== '0000') {
+      setError('')
       setCaptcha(vr.data(repData));
-    }else {
-      onFail(repMsg)
+    } else {
+      setError(msg);
+      onFail(msg);
     }
   };
 
-  useEffect(()=>{
-    if(count > 0){
-      fetch()
+  useEffect(() => {
+    if (count > 0) {
+      fetch();
     }
-  },[count])
+  }, [count]);
 
   const fail = () => {
     const c = count + 1;
     if (c > 2 && captchaType === 'auto') {
       setState({
-        count: c, captchaType: 'point'
-      })
-    }else {
-      setState({count: c})
+        count: c, captchaType: 'point',
+      });
+    } else {
+      setState({ count: c });
     }
   };
   const success = (data: any) => {
-    setTimeout(()=>{
+    setTimeout(() => {
       onSuccess(data);
       toggle(false);
-      setCaptcha({})
-    },1000)
+      setCaptcha({});
+    }, 1000);
   };
 
   const valid = (param: string, second: any) => {
@@ -113,7 +105,19 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
 
 
   const renderBody = () => {
-    if (! captcha.image) {
+    if (error.length > 0) {
+      return <div className={classNames(bem('error'))}>
+        <div className={classNames(bem('icon'))}>
+           <div className={classNames(bem('icon-wrap'))}>
+             <Icon size={32} name='failure' color='#fff' />
+           </div>
+        </div>
+        <div className={classNames(bem('text'))}>
+          {error}
+        </div>
+      </div>;
+    }
+    if (!captcha.image) {
       return <Loading />;
     }
     if (['auto', 'slide'].includes(captchaType)) {
