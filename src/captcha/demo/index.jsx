@@ -12,7 +12,7 @@ export default () => {
     <Captcha
       onSuccess={(data) => console.log(data)}
       path='https://api.ejiexi.com/system/cgi'
-      type='point'
+      type='auto'
       ref={ref}
     >
       <button
