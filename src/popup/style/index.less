@@ -5,32 +5,37 @@
   box-sizing: border-box;
   &__mask {
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background: rgba(0,0,0,0.3);
     margin: 0;
   }
   &--visible {
-    display: inline-block;
+    display: block;
   }
 
   &__body {
-    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
     z-index: 10000;
     min-height: @height + 60px;
-    margin-top: -(@height + 30px);
-    margin-left: -7px;
+    //margin-top: -(@height + 30px);
+    //margin-left: -7px;
     padding: @padding-md @padding-md 0 @padding-md;
     background-color: @pop-body;
     box-shadow: 0px -1px 0px -2px rgba(0, 0, 0, 0.2),
       0px 2px 9px 0px rgba(0, 0, 0, 0.14), 0px 5px 9px 0px rgba(0, 0, 0, 0.15);
   }
 
-  @media only screen and (max-width: 639px) {
-    &__body {
-      left: 50%;
-      margin-left: -(@width / 2) - @padding-md;
-    }
-  }
+  //@media only screen and (max-width: 639px) {
+  //  &__body {
+  //    left: 50%;
+  //    margin-left: -(@width / 2) - @padding-md;
+  //  }
+  //}
 }

@@ -122,3 +122,9 @@ export function isFunction(val: unknown): val is Function {
 export function toImg(base64: string | undefined) {
   return `data:image/png;base64,${base64}`;
 }
+
+export function stop(e: any){
+  if(e && e.preventDefault){
+    e.preventDefault()
+  }
+}

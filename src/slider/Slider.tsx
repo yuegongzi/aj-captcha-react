@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { SliderProps } from './PropsType';
-import { createNamespace, toImg, slideSecond } from '../utils';
+import { createNamespace, toImg, slideSecond ,stop} from '../utils';
 import Icon from '../icon';
 import './style/index.less';
 import classNames from 'classnames';
@@ -73,6 +73,7 @@ const Slider: FC<SliderProps> = (props) => {
     }
   },[captcha])
   const handleStart = (e: any) => {
+    stop(e)
     if (submit) return;
     setOrigin({
       x: e.clientX || e.touches[0].clientX,
@@ -83,6 +84,7 @@ const Slider: FC<SliderProps> = (props) => {
   };
 
   const handleMove = (e: any) => {
+    stop(e)
     if (!solving || submit) return;
     const move = {
       x: (e.clientX || e.touches[0].clientX) - origin.x,
