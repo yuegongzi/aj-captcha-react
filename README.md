@@ -27,7 +27,7 @@ $ npm install aj-captcha-react
 | ----------- | ------------------------------------------------- | -------- | -------------------------- |
 | onFail      | 校验失败时的函数回调                              | Function | -                          |
 | onSuccess   | 校验成功时的函数回调,会将二次校验参数作为参数传递 | Function | -                          |
-| type        | 显示校验模块的方式,可选 point(点选),slide(弹出)   | String   | auto                      |
+| type        | 显示校验模块的方式,可选 point(点选),slide(滑动)   | String   | auto                      |
 | path        | 后端路径前缀                                      | String   | -                          |
 
 
