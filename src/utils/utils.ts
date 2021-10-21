@@ -1,4 +1,7 @@
-import CryptoJS from 'crypto-js';
+import Utf8 from 'crypto-js/enc-utf8';
+import AES from 'crypto-js/aes';
+import ECB from 'crypto-js/mode-ecb';
+import Pkcs7 from 'crypto-js/pad-pkcs7';
 
 export const CODE: Record<any, string> = {
   '0000': '',
@@ -40,11 +43,11 @@ export function storage() {
  * @keyWord String  服务器随机返回的关键字
  *  */
 export function aesEncrypt(word: any, keyWord = 'awKsGlMcdPMEhR1B') {
-  const key = CryptoJS.enc.Utf8.parse(keyWord);
-  const srcs = CryptoJS.enc.Utf8.parse(word);
-  const encrypted = CryptoJS.AES.encrypt(srcs, key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7,
+  const key = Utf8.parse(keyWord);
+  const srcs = Utf8.parse(word);
+  const encrypted = AES.encrypt(srcs, key, {
+    mode: ECB,
+    padding: Pkcs7,
   });
   return encrypted.toString();
 }
