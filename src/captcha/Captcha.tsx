@@ -14,7 +14,7 @@ import Icon from '../icon';
 const [bem] = createNamespace('captcha');
 
 const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
-  const { type, onCancel, onSuccess, onFail, path, className, style } = props;
+  const { type = 'auto', onCancel = noop, onSuccess, onFail = noop, path, className, style } = props;
   const [visible, toggle] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [captcha, setCaptcha] = useState<CaptchaModel>({});

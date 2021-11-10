@@ -20,18 +20,22 @@ export interface CaptchaProps extends BaseTypeProps {
    * 验证码类型
    * @default auto
    */
-  type: CaptchaType;
+  type?: CaptchaType;
 
   /**
    * 取消事件
    */
-  onCancel: () => void;
+  onCancel?: () => void;
   /**
    * 校验失败
    */
-  onFail: (msg: string) => void;
+  onFail?: (msg: string) => void;
   /**
    * 校验成功
    */
   onSuccess: (data: any) => void;
+  /**
+   * 引用声明
+   */
+  ref?: any;
 }
