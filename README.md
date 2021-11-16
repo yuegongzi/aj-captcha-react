@@ -1,11 +1,10 @@
 ## Captcha
-[AJ-Captcha](https://gitee.com/anji-plus/captcha)  React版 ,界面优化调整 支持滑块和点选切换
 
+[AJ-Captcha](https://gitee.com/anji-plus/captcha)  React版 ,界面优化调整 支持滑块和点选切换
 
 ![alt slide.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/slide.png)
 
 ![alt point.png](https://raw.githubusercontent.com/yuegongzi/aj-captcha-react/master/src/assert/point.png)
-
 
 ## Getting Started
 
@@ -20,7 +19,6 @@ $ yarn add aj-captcha-react
 $ npm install aj-captcha-react
 ```
 
-
 ## API
 
 | 属性        | 说明                                              | 类型     | 默认值                     |
@@ -30,7 +28,26 @@ $ npm install aj-captcha-react
 | type        | 显示校验模块的方式,可选 point(点选),slide(滑动)   | String   | auto                      |
 | path        | 后端路径前缀                                      | String   | -                          |
 
+## hooks
 
+useCaptcha
+
+```jsx
+import React, { useRef } from 'react';
+import { useCaptcha } from 'aj-captcha-react';
+
+export default () => {
+  const [run] = useCaptcha({ path: 'http://foo.com', type: 'auto' });
+
+  const click = async () => {
+    const data = await run()
+    console.log(data)
+  };
+
+  return (<button onClick={click}>verify</button>);
+}
+
+```
 
 ## Demo
 
