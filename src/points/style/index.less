@@ -17,10 +17,20 @@
 }
 
 .ac-points {
+
+  &__title{
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: @label-color;
+  }
+
   &__image {
     width: @width;
     height: @height;
     cursor: pointer;
+    border-radius: 4px;
+    overflow: hidden;
     > img {
       width: 100%;
     }
@@ -33,6 +43,7 @@
     width: @width;
     height: @control-size;
     margin-top: 10px;
+    margin-bottom: 10px;
     color: @track-label;
     font-size: 14px;
     line-height: @control-size;

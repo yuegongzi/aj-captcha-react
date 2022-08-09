@@ -16,7 +16,7 @@ export type CaptchaOption = {
 export type Func = (val: any) => void;
 
 export function useCaptcha(option: CaptchaOption) {
-  const ref = useRef();
+  const ref = useRef<any>();
   const successRef = useRef<Func>();
   const failRef = useRef<Func>();
   const onSuccess = (data: any) => {
@@ -34,7 +34,6 @@ export function useCaptcha(option: CaptchaOption) {
   }, []);
 
   const verify = (callBack: Func, fail: Func) => {
-    //@ts-ignore
     ref.current?.verify();
     successRef.current = callBack;
     failRef.current = fail;

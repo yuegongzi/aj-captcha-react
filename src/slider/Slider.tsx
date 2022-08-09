@@ -12,7 +12,7 @@ const slider = {
   default: {
     className: 'default',
     icon: 'arrow',
-    color: '#000',
+    color: '#444',
     spin: false
   },
   submit: {
@@ -131,6 +131,9 @@ const Slider: FC<SliderProps> = (props) => {
       onMouseUp={handleEnd}
       onMouseLeave={handleEnd}
     >
+      <div className={classNames(bem('title'))}>
+        请完成安全验证
+      </div>
       <div className={classNames(bem('image'))}>
         {captcha.image && <img alt='' src={toImg(captcha.image)} />}
       </div>

@@ -3,9 +3,7 @@ import { Captcha, useCaptcha } from 'aj-captcha-react';
 
 export default () => {
   const ref = useRef();
-  const [run] = useCaptcha({
-    path: 'https://api.ejiexi.com/system/cgi',
-  });
+  const [run] = useCaptcha({ path: 'https://api.ejiexi.com/system/cgi',type:'point'});
   const click = () => {
     ref.current?.verify();
   };

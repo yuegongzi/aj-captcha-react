@@ -2,10 +2,17 @@
 
 .ac-slider {
   user-select: none;
+  &__title{
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: @label-color;
+  }
   &__image {
     width: @width;
     height: @height;
-
+    border-radius: 4px;
+    overflow: hidden;
     > img {
       width: 100%;
     }
@@ -17,7 +24,7 @@
     left: 5px;
     width: @slider-width;
     height: @height;
-    margin-top: @padding-md;
+    margin-top: @slider-width;
     margin-left: @padding-md;
     > img {
       height: 100%;

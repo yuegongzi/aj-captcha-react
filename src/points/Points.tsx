@@ -75,6 +75,9 @@ const Points: FC<PointsProps> = (props) => {
 
   return (
     <div className={classNames(className, bem())}>
+      <div className={classNames(bem('title'))}>
+        请完成安全验证
+      </div>
       <div className={classNames(bem('image'))}>
         {captcha.image && <img alt='' src={toImg(captcha.image)} onClick={onClick} />}
       </div>
@@ -83,7 +86,7 @@ const Points: FC<PointsProps> = (props) => {
           key={index}
           className={classNames(bem('point'))}
           style={{
-            top: `${p.y }px`,
+            top: `${p.y+20 }px`,
             left: `${p.x }px`,
           }}
         >
