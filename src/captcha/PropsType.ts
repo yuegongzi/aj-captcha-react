@@ -1,4 +1,5 @@
 import type { BaseTypeProps } from '../utils';
+import {ReactNode} from "react";
 
 export type CaptchaType = 'auto' | 'slide' | 'point';
 
@@ -38,4 +39,6 @@ export interface CaptchaProps extends BaseTypeProps {
    * 引用声明
    */
   ref?: any;
+
+  children?: ReactNode;
 }

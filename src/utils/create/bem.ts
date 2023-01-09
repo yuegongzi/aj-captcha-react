@@ -22,6 +22,7 @@ function gen(name: string, mods?: Mods): string {
   }
 
   if (Array.isArray(mods)) {
+    // @ts-ignore
     return mods.reduce<string>((ret, item) => ret + gen(name, item), '');
   }
   return Object.keys(mods).reduce(
