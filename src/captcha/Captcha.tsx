@@ -96,6 +96,7 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({ verify: fetch }));
   const cancel = () => {
     toggle(false);
+    onFail("用户取消");
     onCancel();
   };
 
