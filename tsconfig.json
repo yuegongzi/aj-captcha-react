@@ -26,5 +26,9 @@
     "test",
     "docs",
     "tests"
+  ],
+  "include": [
+    ".dumirc.ts",
+    "src/**/*"
   ]
 }

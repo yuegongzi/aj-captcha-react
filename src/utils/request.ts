@@ -1,9 +1,11 @@
-import request from 'umi-request';
+import request from 'axios';
 
-export function picture(path: string, rawBody: any) {
-  return request.post(`${path}/captcha/get`, { data: rawBody });
+export async function picture(path: string, rawBody: any) {
+  const { data } = await request.post(`${path}/captcha/get`, rawBody);
+  return data;
 }
 
-export function check(path: string, rawBody: any) {
-  return request.post(`${path}/captcha/check`, { data: rawBody });
+export async function check(path: string, rawBody: any) {
+  const { data } = await request.post(`${path}/captcha/check`, rawBody);
+  return data;
 }

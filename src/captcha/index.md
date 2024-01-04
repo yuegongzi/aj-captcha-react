@@ -16,4 +16,4 @@
 | type        | 显示校验模块的方式,可选 point(点选),slide(弹出)   | String   | auto                      |
 | path        | 后端路径前缀                                      | String   | -                          |
 
-<code src='./demo/index.jsx'/>
+<code src='./demo/index.jsx'></code>
